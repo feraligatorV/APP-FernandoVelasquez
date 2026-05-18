@@ -74,6 +74,7 @@ export function ProfilePage() {
   }
 
   function cancelEdit() {
+    if (!profile) return;
     setIsEditing(false);
     setError("");
     setSuccess("");
