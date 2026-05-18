@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
@@ -37,4 +38,12 @@ public class User {
     @Column(nullable = false)
     @JsonIgnore
     private String password;
+
+    @Column
+    @JsonIgnore
+    private String resetPasswordToken;
+
+    @Column
+    @JsonIgnore
+    private LocalDateTime resetPasswordTokenExpiresAt;
 }
