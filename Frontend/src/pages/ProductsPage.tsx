@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Alert, Button, Card, CardActions, CardContent, CardMedia, CircularProgress, Grid, Typography } from "@mui/material";
+import { Alert, Box, Button, Card, CardActions, CardContent, CardMedia, CircularProgress, Typography } from "@mui/material";
 import { cartApi } from "../api/cartApi";
 import { addGuestItem } from "../api/guestCart";
 import { productApi } from "../api/productApi";
@@ -57,31 +57,39 @@ export function ProductsPage() {
       {!token && <Alert severity="info">Puedes navegar y agregar productos sin iniciar sesión. Solo necesitas iniciar sesión para completar la compra.</Alert>}
       {success && <Alert severity="success">{success}</Alert>}
       {error && <Alert severity="error">{error}</Alert>}
-      <Grid container spacing={2}>
+      <Box
+        sx={{
+          display: "grid",
+          gap: 2,
+          gridTemplateColumns: {
+            xs: "1fr",
+            sm: "repeat(2, minmax(0, 1fr))",
+            md: "repeat(3, minmax(0, 1fr))"
+          }
+        }}
+      >
         {products.map((p) => (
-          <Grid item xs={12} sm={6} md={4} key={p.id}>
-            <Card className="h-full rounded-2xl">
-              <CardMedia component="img" image={p.imageUrl} alt={p.name} className="h-44" />
-              <CardContent>
-                <Typography variant="h6" fontWeight={800}>
-                  {p.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary" className="line-clamp-3">
-                  {p.description}
-                </Typography>
-                <Typography variant="h6" color="primary" fontWeight={900} className="mt-2">
-                  ${p.price.toFixed(2)}
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button fullWidth variant="contained" onClick={() => add(p)} disabled={addingProductId === p.id}>
-                  {addingProductId === p.id ? "Agregando..." : "Agregar al carrito"}
-                </Button>
-              </CardActions>
-            </Card>
-          </Grid>
+          <Card key={p.id} className="h-full rounded-2xl">
+            <CardMedia component="img" image={p.imageUrl} alt={p.name} className="h-44" />
+            <CardContent>
+              <Typography variant="h6" fontWeight={800}>
+                {p.name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary" className="line-clamp-3">
+                {p.description}
+              </Typography>
+              <Typography variant="h6" color="primary" fontWeight={900} className="mt-2">
+                ${p.price.toFixed(2)}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button fullWidth variant="contained" onClick={() => add(p)} disabled={addingProductId === p.id}>
+                {addingProductId === p.id ? "Agregando..." : "Agregar al carrito"}
+              </Button>
+            </CardActions>
+          </Card>
         ))}
-      </Grid>
+      </Box>
     </section>
   );
 }

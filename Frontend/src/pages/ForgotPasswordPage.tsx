@@ -1,4 +1,5 @@
-import { FormEvent, useState } from "react";
+import { useState } from "react";
+import type { FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { Alert, Box, Button, Card, CardContent, CircularProgress, TextField, Typography } from "@mui/material";
 import { authApi } from "../api/authApi";
